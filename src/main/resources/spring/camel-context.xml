@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd        http://camel.apache.org/schema/spring       http://camel.apache.org/schema/spring/camel-spring.xsd">
+    <!-- You could also define a traditional camel context here -->
+    <camelContext id="camelContext-46226a82-db0f-442f-bc2f-b2cb0e4fc75c" xmlns="http://camel.apache.org/schema/spring">
+        <restConfiguration bindingMode="json" component="jetty"
+            enableCORS="true" host="0.0.0.0" port="8666"/>
+        <rest id="svc" path="/">
+            <get id="testOp" uri="test">
+                <to uri="direct:test"/>
+            </get>
+        </rest>
+        <route id="testRoute">
+            <from id="testStarter" uri="direct:test"/>
+            <log id="_log1" message="received request"/>
+            <setBody id="_setBody1">
+                <constant>Hello world</constant>
+            </setBody>
+        </route>
+    </camelContext>
+</beans>
